@@ -1,0 +1,185 @@
+[DEFINITION."画像変換"]
+do_resize = [
+    "サイズ変更する",
+    "bool",
+]
+dest_path = [
+    "保存先フォルダ",
+    "str",
+]
+width = [
+    "幅",
+    "int",
+]
+height = [
+    "高さ",
+    "int",
+]
+overwrite = [
+    "新しいファイルをいくつも作らない",
+    "bool",
+]
+exif = [
+    "Exif情報出力",
+    "bool",
+]
+mirror = [
+    "ミラー反転",
+    "bool",
+]
+rotate270 = [
+    "右回転",
+    "bool",
+]
+rotate90 = [
+    "左回転",
+    "bool",
+]
+
+[DEFINITION."透かし"]
+is_water_mark = [
+    "透かし文字付加",
+    "bool",
+]
+water_mark = [
+    "透かし文字",
+    "str",
+]
+wm_font_name = [
+    "フォントファイル名",
+    "str",
+]
+wm_size = [
+    "フォントサイズ",
+    "int",
+]
+wm_f_color = [
+    "文字色",
+    "str",
+]
+wm_b_color = [
+    "縁取りの色",
+    "str",
+]
+wm_stroke = [
+    "縁取りの幅(px)",
+    "int",
+]
+wm_padx = [
+    "右下からの隙間(横)",
+    "int",
+]
+wm_pady = [
+    "右下からの隙間(縦)",
+    "int",
+]
+
+[DEFINITION."アップロード"]
+use_hatena_folder = [
+    "デフォルトフォルダを使用",
+    "bool",
+]
+folder = [
+    "フォトライフのフォルダ",
+    "str",
+]
+
+[DEFINITION."画像URLのコピー"]
+foto = [
+    "fotolife記法で出力",
+    "bool",
+]
+only_url = [
+    "画像番号またはURLだけを出力",
+    "bool",
+]
+add_title = [
+    "ファイル名をタイトルとして付加",
+    "bool",
+]
+add_options = [
+    "オプション",
+    "str",
+]
+
+[DEFINITION."表示設定"]
+width4thumbnail = [
+    "サムネイル画像の幅",
+    "int",
+]
+geometry = [
+    "アプリのサイズと位置",
+    "str",
+]
+
+[DEFAULT."画像変換"]
+do_resize = true
+dest_path = "."
+width = 800
+height = 0
+overwrite = true
+exif = false
+mirror = false
+rotate270 = false
+rotate90 = false
+
+[DEFAULT."透かし"]
+is_water_mark = false
+water_mark = ""
+wm_font_name = "msgothic.ttc"
+wm_size = 12
+wm_f_color = "gold"
+wm_b_color = "black"
+wm_stroke = 0
+wm_padx = 5
+wm_pady = 5
+
+[DEFAULT."アップロード"]
+use_hatena_folder = true
+folder = ""
+
+[DEFAULT."画像URLのコピー"]
+foto = false
+only_url = false
+add_title = true
+add_options = ""
+
+[DEFAULT."表示設定"]
+width4thumbnail = 250
+geometry = "1000x702+0+0"
+
+[USER."画像変換"]
+do_resize = true
+dest_path = "."
+width = 800
+height = 0
+overwrite = true
+exif = false
+mirror = false
+rotate270 = false
+rotate90 = false
+
+[USER."透かし"]
+is_water_mark = false
+water_mark = ""
+wm_font_name = "meiryo.ttc"
+wm_size = 12
+wm_f_color = "gold"
+wm_b_color = "black"
+wm_stroke = 0
+wm_padx = 5
+wm_pady = 5
+
+[USER."アップロード"]
+use_hatena_folder = true
+folder = ""
+
+[USER."画像URLのコピー"]
+foto = false
+only_url = false
+add_title = true
+add_options = ""
+
+[USER."表示設定"]
+width4thumbnail = 250
+geometry = "1000x702+0+0"
