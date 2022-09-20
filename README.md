@@ -19,12 +19,9 @@
 ## 依存関係 Requirement
 
 - Python 3.8.5  
-- image_resize_sig	1.0.1
-- fotolifeUpload	1.0.1
-- toml_file_util	1.0.0
-
-準備中  
-in preparation  
+- [Python-Image-resize-sig](Python-Image-resize-sig)	1.0.1
+- [Python-fotolife-Upload](Python-fotolife-Upload)	1.0.1
+- [Python-TOML-util](Python-TOML-util)	1.0.0
 
 ## 使い方 Usage
 
