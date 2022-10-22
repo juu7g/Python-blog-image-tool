@@ -43,7 +43,7 @@ class ListView(ttk.Frame):
         self.image_op = ImageOp()
         self.u_frame = tk.Frame(master, bg="white")     # 背景色を付けて配置を見る
         self.b_frame = tk.Frame(master, bg="green")     # 背景色を付けて配置を見る
-        self.r_frame = ScrolledFrame(master, width=50, bg="lightblue")
+        self.r_frame = ScrolledFrame(master, width=50, bg="lightblue")  # 背景色を付けるとセクションの境に色が出る
         self.r_frame.parent_frame.pack(side="right", fill="y")
         self.u_frame.pack(fill=tk.X)
         self.b_frame.pack(fill=tk.BOTH, expand=True)
@@ -68,9 +68,10 @@ class ListView(ttk.Frame):
 
     def create_frame4images(self, parent:ttk.Notebook, tab_name:str) -> ScrolledFrame:
         """
-        画像用Frameの作成 ScrolledFrameを使用
+        画像用ScrolledFrameを作成し、parentにタブを追加
         Args:
-            Any:      親ウィジェット
+            Any:    親ウィジェット(Notebook)
+            str:    タブ名
         """
         scrolled_frame = ScrolledFrame(parent)
         
@@ -83,13 +84,16 @@ class ListView(ttk.Frame):
         self.frame_children[tab_name] = []
         scrolled_frame.parent_canvas.bind("<Configure>", lambda event: TkinterLib.wrapped_grid(
             scrolled_frame.parent_canvas, *self.frame_children.get(tab_name), event=event, flex=False), add=True)
-        self.note.add(scrolled_frame.parent_frame, text=tab_name)
+        self.note.add(scrolled_frame.parent_frame, text=tab_name)   # タブを追加
         return scrolled_frame
     
     def create_config_frame(self, parent):
         """
         設定項目用画面の作成
-        self.var_dictの作成
+        self.var_dict(設定項目の辞書)の作成
+
+        Args:
+            ScrolledFrame:  親ウィジェット
         """
         # pyinstallerで作成したexeか判断してexeの場所を特定する
         if getattr(sys, 'frozen', False):
@@ -166,6 +170,7 @@ class ListView(ttk.Frame):
             list:       行データ(行リストの列リスト)
                         列：ファイル名、幅、高さ、ファイルサイズ、exif情報、gps情報
             list:       画像データ
+            str:        タブ名
         """
         if not rows:    # 要素が無ければ戻る
             return
@@ -198,7 +203,8 @@ class ListView(ttk.Frame):
             label_f_name.pack(side=tk.BOTTOM)
             check_box.pack()
             self.frame_children[tab_name].append(frame1)
-            frame1.grid(row=0, column=0)    # 一度仮にgridして個々のサイズが鑑定できるようにする
+            frame1.grid(row=0, column=0)    # 一度仮にgridして個々のサイズが確定できるようにする
+
 
         # 親Frameの幅に合わせてgridする
         if self.frame_children[tab_name]:
@@ -211,15 +217,14 @@ class ListView(ttk.Frame):
     def open_files_get_images_set2frame(self, event=None, parent=None, file_paths_:tuple=None, tab_name:str=None):
         """
         file_paths_のパスからファイル情報、画像サムネイルを作成
-        frame4imagesに画像を含んだFrameを追加
+        parent(ScrolledFrame)に画像を含んだFrameを追加
         Args:
-            Frame:      画像Frameの追加先Frame(None:frame4images)
+            Frame:      画像Frameの追加先Frame
             tuple:       画像のパスのタプル(eventがある場合はeventから)
+            str:        タブ名
         """
         self.image_op.msg = ""
         if not tab_name: tab_name = self.tab1_name
-        # parentオプションがない場合、frame4imagesをparentとする
-        # if not parent: parent = self.frame4images
         # DnD対応
         if event:
             # DnDのファイル情報はevent.dataで取得
@@ -324,6 +329,10 @@ class ListView(ttk.Frame):
             self.msg.set(err_msg)
 
     def create_new_tab(self, image_paths:set):
+        """
+        新しいタブの作成
+        タブ名を「リサイズ画像n」とする
+        """
         tab_name_resize = "リサイズ画像"
         # 複数の結果に対応するためタブ名を変える
         x = 2
@@ -449,8 +458,8 @@ class ListView(ttk.Frame):
 
     def copy_image_url(self):
         """
-		Args:
-			bool: 設定値
+        チェックされている画像のはてなフォトライフの画像のurlを取得し、
+        画面の設定項目の指示に従って加工し、クリップボートにコピーする。
         """
         clip_strings = []
         self.msg.set("")
@@ -463,16 +472,25 @@ class ListView(ttk.Frame):
                     selected = item_.cget("text") in w.checked_image_paths  # 選択されている画像か判断
                     path_ = item_.cget("text")
                 elif type(item_) == tk.Label:
-                    uploaded = item_.winfo_rgb(item_.config("background")[4]) == item_.winfo_rgb("lightgreen")
+                    uploaded = item_.winfo_rgb(item_.cget("background")) == item_.winfo_rgb("lightgreen")
             if uploaded and selected:
                 clip_strings.append(self.get_image_url(path_, settings_dict))
         if clip_strings:
-            pyperclip.copy(os.linesep.join(clip_strings))
+            pyperclip.copy(os.linesep.join(clip_strings))   # クリップボードにコピー
             self.msg.set("コピーしました")
         else:
             self.msg.set("コピーするものがありません")
 
     def get_image_url(self, file_name:str, settings_dict:dict) -> str:
+        """
+        画像(file_name)のはてなフォトライフの画像url情報を取得し、
+        画面の設定項目の指示に従って加工し返す
+		Args:
+			str:    画像のファイル名(パス)
+            dict:   画面の設定項目
+        Returns:
+            str:    加工した画像のurl
+        """
         result = ""
         isfoto = settings_dict.get("foto", False)
         istitle = settings_dict.get("add_title")
