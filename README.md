@@ -18,10 +18,15 @@
 
 ## 依存関係 Requirement
 
-- Python 3.8.5  
-- [Python-Image-resize-sig](../../../Python-Image-resize-sig)	1.0.1
-- [Python-fotolife-Upload](../../../Python-fotolife-Upload)	1.0.1
-- [Python-TOML-util](../../../Python-TOML-util)	1.0.0
+- Python 3.8.5
+- Pillow 8.3.0
+- TkinterDnD2 0.3.0
+- Requests 2.25.1
+- pyperclip 1.8.2
+- Repository [Python-Image-resize-sig](../../../Python-Image-resize-sig)	1.0.1
+- Repository [Python-fotolife-Upload](../../../Python-fotolife-Upload)	1.0.1
+- Repository [Python-TOML-util](../../../Python-TOML-util)	1.0.0
+- Repository [Python-tkinter-libs](../../../Python-tkinter-libs)	1.0.1
 
 ## 使い方 Usage
 
@@ -32,15 +37,21 @@
 
 ## インストール方法 Installation
 
-準備中  
-in preparation  
+- pip install Pillow
+- pip install tkinterdnd2
+- pip install pyperclip
+- pip install requests
+- pip install tomli
+- pip install tomli-w
+- ソースと同じフォルダにコピー Copy to same folder as source
+	- image_resize_sig.py
+	- fotolifeUpload.py
+	- toml_file_util.py
+	- tkinter_libs.py
 
 ## プログラムの説明サイト Program description site
 
-準備中  
-in preparation  
-
-
+[はてなブログ向け画像ツールの作り方【Python】 - プログラムでおかえしできるかな](https://juu7g.hatenablog.com/entry/Python/blog/image-tool)
 
 ## 作者 Authors
 juu7g
